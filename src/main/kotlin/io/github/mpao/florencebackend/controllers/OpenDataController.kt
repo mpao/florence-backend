@@ -2,6 +2,7 @@ package io.github.mpao.florencebackend.controllers
 
 import io.github.mpao.florencebackend.OPEN_EVENTS_URL
 import io.github.mpao.florencebackend.PARKINGS_URL
+import io.github.mpao.florencebackend.entities.Event
 import io.github.mpao.florencebackend.entities.OpendataEvents
 import io.github.mpao.florencebackend.entities.ParkingStatus
 import org.springframework.beans.factory.annotation.Autowired
@@ -21,10 +22,10 @@ class OpenDataController {
     @Autowired lateinit var rest: RestTemplate
 
     @GetMapping( "/events", produces = [MediaType.TEXT_EVENT_STREAM_VALUE])
-    fun getEvents(): Flux<OpendataEvents> {
+    fun getEvents(): Flux<Event> {
 
         val data: OpendataEvents = rest.getForObject(OPEN_EVENTS_URL, OpendataEvents::class.java) ?: OpendataEvents(arrayListOf())
-        return Flux.just(data)
+        return Flux.fromIterable(data.eventi)
 
     }
 

@@ -3,8 +3,6 @@ package io.github.mpao.florencebackend.entities
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import com.fasterxml.jackson.annotation.JsonInclude
-import org.springframework.data.mongodb.core.mapping.Document
-
 /**
  * Descrive un evento degli Opendata del Comune di Firenze
  */
@@ -26,7 +24,6 @@ import org.springframework.data.mongodb.core.mapping.Document
         "nomeInglese",
         "dataInizio"
 )
-@Document(collection = "events")
 data class Event (
     @JsonProperty("nome") var nome: String?,
     @JsonProperty("rilevanza") var rilevanza: String?,

@@ -12,15 +12,23 @@ import org.springframework.web.client.RestTemplate
 import reactor.core.publisher.Flux
 
 @RestController
-@RequestMapping(path=["/florence-app-resources"], produces=["application/json"])
-@CrossOrigin
 class OpenDataController {
 
     @Autowired lateinit var rest: RestTemplate
 
     @GetMapping( "/")
     @ResponseBody
-    fun home() = "42"
+    fun home(): String {
+        return "<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "<body>\n" +
+                "\t<ul>\n" +
+                "\t\t<li><a href=\"/events\">Eventi</a></li>\n" +
+                "\t\t<li><a href=\"/parkings\">Parkings</a></li>\n" +
+                "\t</ul>\n" +
+                "</body>\n" +
+                "</html>"
+    }
 
     @GetMapping( "/events", produces = [MediaType.TEXT_EVENT_STREAM_VALUE])
     fun getEvents(): Flux<Event> {
